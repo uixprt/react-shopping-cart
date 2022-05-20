@@ -1,0 +1,63 @@
+.mainWrapper {
+  padding: 1em;
+  display: grid;
+  align-items: start;
+  grid-template-columns: 15% calc(55% - 2em) 30%;
+  grid-template-rows: 3em auto;
+  grid-template-areas: 'logo search search' 'filters products cart';
+  gap: 1em;
+}
+
+.header {
+  display: contents;
+}
+
+.logo {
+  grid-area: logo;
+}
+
+.querySearch {
+  grid-area: search;
+
+  input {
+    display: block;
+    padding: 0.8em 1em;
+    width: 100%;
+    border-radius: 0.5em;
+    border: 1px solid #111;
+    font: inherit;
+
+    &:focus {
+      outline: none;
+      border-color: #1f3ef9;
+    }
+  }
+}
+
+.productsListWrapper {
+  grid-area: products;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.filtersWrapper {
+  position: sticky;
+  top: 1em;
+
+  grid-area: filters;
+
+  text-transform: capitalize;
+}
+
+.filterCategory {
+  color: #1f3ef9;
+}
+
+.cartWrapper {
+  grid-area: cart;
+
+  position: sticky;
+  top: 1em;
+}
