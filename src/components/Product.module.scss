@@ -72,3 +72,9 @@
   display: block;
   composes: ellipsis;
 }
+
+.priceRow {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}

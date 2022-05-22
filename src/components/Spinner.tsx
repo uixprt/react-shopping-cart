@@ -1,6 +1,6 @@
 export const Spinner = (): JSX.Element => (
   <>
-    <svg className="spinner-svg-def">
+    <svg className="svg-def">
       <defs>
         <filter id="strokeGlow" y="-10" x="-10" width="250" height="150">
           <feOffset dx="0" dy="0" result="centeredOffset"></feOffset>

@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import type { FC, CSSProperties } from 'react';
 import { ProductEntity, CartItem } from '../entities';
 import styles from './Product.module.scss';
+import { toMonetaryText } from '../utils';
+import { Rate } from './Rate';
 
 type Props = {
   product: ProductEntity;
@@ -36,6 +38,12 @@ export const Product: FC<Props> = ({ product, item, handelAddToCart }) => {
           </div>
         </div>
         <div className={styles.detailsWrapper}>
+          <p className={styles.priceRow}>
+            <b className={styles.rating}>
+              <Rate rate={product.rating.rate}></Rate>
+            </b>
+            <b className={styles.price}>{toMonetaryText(product.price, '$')}</b>
+          </p>
           <h3 className={styles.title}>{product.title}</h3>
           <p className={styles.details}>{product.description}</p>
           <input

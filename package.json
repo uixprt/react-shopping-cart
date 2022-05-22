@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "react-scripts build",
+    "build": "react-scripts build && mv ./build/ ./docs",
     "eject": "react-scripts eject",
     "start": "react-scripts start",
     "test": "react-scripts test"
