@@ -1,0 +1,1 @@
+export { toMonetaryText } from './toMonetaryText';

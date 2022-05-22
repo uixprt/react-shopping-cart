@@ -1,0 +1,87 @@
+.mainWrapper {
+  padding: 1em;
+  display: grid;
+  align-items: start;
+  grid-template-columns: 15% calc(55% - 2em) 30%;
+  grid-template-rows: 3em auto;
+  grid-template-areas: 'logo search search' 'filters products cart';
+  gap: 1em;
+}
+
+.header {
+  display: contents;
+}
+
+.logo {
+  grid-area: logo;
+}
+
+.querySearch {
+  grid-area: search;
+  position: relative;
+  color: #7d8da6;
+
+  svg {
+    position: absolute;
+    height: 1.5em;
+    width: 1.5em;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 1em;
+    stroke: currentColor;
+  }
+
+  //&:focus-within {
+  //  color: #1f3ef9;
+  //}
+
+  input {
+    color: inherit;
+    display: block;
+    width: 100%;
+    border: 1px solid #e9ecff;
+    font: inherit;
+
+    background-color: #f7f8f9;
+    height: 3em;
+    line-height: 3em;
+    border-radius: 0.5em;
+    font-size: 1em;
+    font-weight: 400;
+    text-transform: capitalize;
+    padding-left: 3em;
+
+    &:focus {
+      outline: none;
+      color: #161b39;
+    }
+  }
+}
+
+.productsListWrapper {
+  grid-area: products;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.filtersWrapper {
+  position: sticky;
+  top: 1em;
+
+  grid-area: filters;
+
+  text-transform: capitalize;
+}
+
+.filterCategory {
+  color: #1f3ef9;
+}
+
+.cartWrapper {
+  grid-area: cart;
+
+  position: sticky;
+  top: 1em;
+}

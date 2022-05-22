@@ -1,0 +1,47 @@
+.Wrapper {
+  display: flex;
+  font-size: 0.7em;
+  gap: 0.2em;
+  color: #1f3ef9;
+}
+
+.Stars {
+  display: flex;
+  width: 5.7em;
+  justify-content: space-between;
+}
+
+.Star {
+  //border: 1px solid #161b39;
+  height: 1em;
+  width: 1em;
+  border-radius: 0.5em;
+
+  svg {
+    stroke: #1f3ef9;
+  }
+}
+
+.Full {
+  composes: Star;
+
+  svg {
+    fill: #1f3ef9;
+  }
+}
+
+.Empty {
+  composes: Star;
+
+  svg {
+    fill: none;
+  }
+}
+
+.Partly {
+  composes: Star;
+
+  svg {
+    fill: rgba(#1f3ef9, 0.5);
+  }
+}
