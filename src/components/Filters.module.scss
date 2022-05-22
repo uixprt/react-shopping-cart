@@ -1,0 +1,77 @@
+.Wrapper {
+  border: 1px solid #e9ecff;
+  border-radius: 0.5em;
+  overflow: hidden;
+  box-shadow: 0 4px 25px rgb(22 27 57 / 10%);
+  margin-bottom: 1em;
+}
+
+.Heading {
+  display: flex;
+  align-items: center;
+  height: 3em;
+  padding: 0.8em;
+  background-color: #f7f8f9;
+  border-bottom: 1px solid #e9ecff;
+}
+
+.List {
+  padding: 0.8em;
+  margin: 0;
+  list-style: none;
+}
+
+.Item {
+  padding: 0.4em;
+}
+
+.CheckboxWrapper {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  padding: 0.15em 0.2em;
+
+  input {
+    display: none;
+  }
+
+  i {
+    position: relative;
+    height: 1.15em;
+    width: 1.15em;
+    border: 1px solid #1f3ef9;
+    background-color: rgba(#1f3ef9, 0.01);
+    border-radius: 0.3em;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    box-shadow: 0 4px 15px rgba(22, 27, 57, 0.3);
+    transition: box-shadow 150ms ease-in-out,
+      background-color 110ms 150ms ease-out;
+
+    svg {
+      fill: currentColor;
+      height: 80%;
+      width: 80%;
+      transform: scale(0);
+      transition: transform 150ms ease-in;
+    }
+
+    &.InputActive {
+      background-color: #1f3ef9;
+
+      svg {
+        transform: scale(1);
+        transition-timing-function: ease-out;
+      }
+    }
+  }
+
+  &:hover i {
+    box-shadow: 0 4px 7px rgba(22, 27, 57, 0.3);
+    background-color: rgba(#1f3ef9, 0.4);
+  }
+}

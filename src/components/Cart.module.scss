@@ -11,19 +11,18 @@
   height: 3em;
   padding: 0.8em;
   background-color: #f7f8f9;
-  font-weight: bold;
   border-bottom: 1px solid #e9ecff;
 }
 
 .body {
-  padding: 0.6em;
+  padding: 0.8em;
   display: flex;
   flex-direction: column;
   gap: 1em;
 }
 
 .cartEmpty {
-  padding: 0.6em;
+  padding: 0.8em;
   display: grid;
   align-items: center;
 }
@@ -56,7 +55,6 @@
   width: 1.5em;
   border-radius: 50%;
   border: 0;
-  background-color: #161b39;
   color: #fff;
   padding: 0;
   display: flex;
@@ -64,10 +62,39 @@
   align-items: center;
   line-height: 1;
   cursor: pointer;
+  text-indent: -9999em;
+  position: relative;
+
+  background-color: #1f3ef9;
+  box-shadow: 0 4px 15px rgba(22, 27, 57, 0.6);
+  transition: box-shadow 150ms ease-in-out;
+
+  &:hover {
+    box-shadow: 0 4px 7px rgba(22, 27, 57, 0.6);
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    height: 1px;
+    width: 60%;
+    top: 50%;
+    left: 50%;
+    background-color: currentColor;
+  }
+
+  &::before {
+    transform: translate(-50%, -50%) rotate(135deg);
+  }
+
+  &::after {
+    transform: translate(-50%, -50%) rotate(-135deg);
+  }
 }
 
 .footer {
-  border-top: 1px solid #161b39;
+  border-top: 1px solid #e9ecff;
   padding: 0.5em 0;
   display: flex;
   justify-content: flex-end;
@@ -76,7 +103,7 @@
 .cartTotal {
   display: block;
   flex-basis: 20%;
-  font-weight: bold;
+  color: #1f3ef9;
   font-size: 1em;
   text-align: center;
   margin-right: 1.5em;

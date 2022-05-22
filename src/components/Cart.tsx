@@ -20,8 +20,8 @@ export const Cart: FC<Props> = ({ items, total, handleRemoveItem }) => {
               {[...items].map(([id, item]) =>
                 item.quantity > 0 ? (
                   <div className={styles.item} key={id}>
-                    <b className={styles.title}>{item.title}</b>
-                    <b className={styles.quantity}>X {item.quantity}</b>
+                    <span className={styles.title}>{item.title}</span>
+                    <span className={styles.quantity}>X {item.quantity}</span>
                     <b className={styles.total}>
                       {toMonetaryText(item.total, '$')}
                     </b>

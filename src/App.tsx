@@ -1,4 +1,4 @@
-import { Product, Cart, Spinner } from './components';
+import { Filters, Product, Cart, Spinner } from './components';
 import './scss/main.scss';
 import styles from './App.module.scss';
 import { useProducts, useCart } from './hooks';
@@ -35,24 +35,7 @@ export const App = () => {
           </div>
         </header>
         <div className={styles.filtersWrapper}>
-          {Object.keys(filters).map((category) => (
-            <div key={category}>
-              <h4 className={styles.filterCategory}>{category}</h4>
-              {Object.values(filters[category]).map((filter) => (
-                <p key={filter.code}>
-                  <label>
-                    <input
-                      type="checkbox"
-                      name={filter.code}
-                      checked={filter.active}
-                      onChange={() => toggleFilter(filter)}
-                    />
-                    <span> {filter.label} </span>
-                  </label>
-                </p>
-              ))}
-            </div>
-          ))}
+          <Filters filters={filters} toggleFilter={toggleFilter} />
         </div>
         <div className={styles.productsListWrapper}>
           {filteredProducts?.map((product) => (
