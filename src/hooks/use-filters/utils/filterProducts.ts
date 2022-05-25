@@ -5,6 +5,10 @@ export function filterProducts(
   activeFilters: FiltersSettings,
   products: ProductEntity[] | undefined,
 ) {
+  if (!Object.keys(activeFilters).length) {
+    return products;
+  }
+
   const filteredProducts: ProductEntity[][] = [[]];
   products?.forEach((item) => {
     Object.keys(activeFilters).forEach((category, index) => {
