@@ -1,8 +1,8 @@
 import { FilterCode, FilterCategory } from 'src/entities/filter';
 import { initialFiltersSettings } from 'src/configs';
-import { updateFilters, filterProducts, getActiveFilters } from './utils';
+import { updateFilters, filterProducts, getActiveFilters } from '.';
 
-import { testData } from './testData';
+import { testData } from '../testData';
 
 describe('filterProducts', () => {
   test('if no active filters return all products from initial data list', () => {
