@@ -6,8 +6,8 @@ import { useFilters } from './hooks/use-filters/useFilters';
 import { SearchIcon } from './icons/SearchIcon';
 
 export const App = () => {
-  const { cartState, handelAddToCart, handelRemoveFromCart } = useCart();
-  const { searchQuery, isLoading, error, products, handelOnSearch } =
+  const { cart, changeQuantity, removeItem } = useCart();
+  const { isLoading, error, productsMap, products, onFilterProducts } =
     useProducts();
   const { filters, toggleFilter, filteredProducts } = useFilters(products);
   if (isLoading)
@@ -29,8 +29,7 @@ export const App = () => {
             <input
               type="text"
               placeholder={'Search'}
-              value={searchQuery}
-              onChange={handelOnSearch}
+              onChange={onFilterProducts}
             />
           </div>
         </header>
@@ -38,21 +37,29 @@ export const App = () => {
           <Filters filters={filters} toggleFilter={toggleFilter} />
         </div>
         <div className={styles.productsListWrapper}>
-          {filteredProducts?.map((product) => (
-            <Product
-              product={product}
-              item={cartState.items.get(product.id)}
-              handelAddToCart={handelAddToCart}
-              key={product.id}
-            />
-          ))}
+          {filteredProducts?.length ? (
+            filteredProducts.map((product) => (
+              <Product
+                product={product}
+                item={cart.get(product.id)}
+                onChangeQuantity={changeQuantity}
+                key={product.id}
+              />
+            ))
+          ) : (
+            <div className={styles.noProductsResults}>
+              No Products matches to your filters... :(
+            </div>
+          )}
         </div>
         <div className={styles.cartWrapper}>
-          <Cart
-            items={cartState.items}
-            total={cartState.total}
-            handleRemoveItem={handelRemoveFromCart}
-          />
+          {productsMap ? (
+            <Cart
+              productsMap={productsMap}
+              cart={cart}
+              onRemoveItem={removeItem}
+            />
+          ) : null}
         </div>
       </main>
     </>

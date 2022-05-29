@@ -1,23 +1,21 @@
-//import { useState } from 'react';
 import type { FC, CSSProperties, ChangeEvent } from 'react';
 import { ProductEntity, CartItem } from '../entities';
 import styles from './Product.module.scss';
 import { toMonetaryText } from '../utils';
 import { Rate } from './Rate';
+import { backgroundImagesList } from 'src/configs';
 
 type Props = {
   product: ProductEntity;
   item: CartItem | undefined;
-  handelAddToCart: (product: ProductEntity, quantity: number) => void;
+  onChangeQuantity: (id: number, quantity: number) => void;
 };
 
-export const Product: FC<Props> = ({ product, item, handelAddToCart }) => {
-  const quantity = item?.quantity || '';
-
+export const Product: FC<Props> = ({ product, item, onChangeQuantity }) => {
   function changeQuantity(e: ChangeEvent<HTMLInputElement>) {
     const updateValue = Number(e.target.value);
-    if (updateValue === quantity) return;
-    handelAddToCart(product, updateValue);
+    if (updateValue === item?.quantity) return;
+    onChangeQuantity(product.id, updateValue);
   }
 
   return (
@@ -27,7 +25,9 @@ export const Product: FC<Props> = ({ product, item, handelAddToCart }) => {
           className={styles.imageBack}
           style={
             {
-              [`--background-image-url`]: `url("//picsum.photos/400/100.webp?blur=2&random=${product.id}")`,
+              [`--background-image-url`]: `url("${
+                backgroundImagesList[product.id - 1]
+              }")`,
             } as CSSProperties
           }
         >
@@ -48,7 +48,7 @@ export const Product: FC<Props> = ({ product, item, handelAddToCart }) => {
             min={0}
             type={'number'}
             placeholder={'Quantity'}
-            value={quantity}
+            value={item?.quantity || ''}
             onChange={changeQuantity}
           />
         </div>

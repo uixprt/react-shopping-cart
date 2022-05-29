@@ -1,75 +1,52 @@
 import { useState } from 'react';
-import { CartEntity, CartItem, ProductEntity } from '../entities';
+import { CartEntity, CartItem } from '../entities';
 
 function initCart(): CartEntity {
   if (localStorage.getItem('cartItems')) {
-    return {
-      items: new Map(JSON.parse(localStorage.cartItems)) as Map<
-        number,
-        CartItem
-      >,
-      total: JSON.parse(localStorage.cartTotal),
-    };
+    return new Map(JSON.parse(localStorage.cartItems)) as Map<number, CartItem>;
   }
 
-  return {
-    items: new Map(),
-    total: 0,
-  };
+  return new Map();
 }
 
 export function useCart() {
-  const [cartState, setCartState] = useState<CartEntity>(initCart);
+  const [cart, setCart] = useState<CartEntity>(initCart);
 
-  function updateCart(items: Map<number, CartItem>, total: number) {
+  function updateCart(items: Map<number, CartItem>) {
     localStorage.cartItems = JSON.stringify([...items]);
-    localStorage.cartTotal = JSON.stringify(total);
 
-    setCartState({
-      items,
-      total,
-    });
+    setCart(items);
   }
 
-  const handelRemoveFromCart = (item: CartItem) => {
-    const total = cartState.total - item.total;
-    cartState.items.delete(item.id);
-    const items = new Map(cartState.items);
+  const removeItem = (id: number) => {
+    cart.delete(id);
+    const items = new Map(cart);
 
-    updateCart(items, total);
+    updateCart(items);
   };
 
-  const handelAddToCart = (product: ProductEntity, quantity: number) => {
-    if (!quantity && !cartState.items.get(product.id)?.quantity) {
+  const addItem = (id: number, quantity: number) => {
+    const items = cart.set(id, { id, quantity });
+
+    updateCart(new Map<number, CartItem>(items));
+  };
+
+  const changeQuantity = (id: number, quantity: number) => {
+    if (!quantity && !cart.get(id)?.quantity) {
       return;
     }
 
-    if (!quantity && cartState.items.get(product.id)?.quantity === 0) {
-      handelRemoveFromCart(cartState.items.get(product.id) as CartItem);
+    if (!quantity && cart.get(id)?.quantity === 0) {
+      removeItem(id);
       return;
     }
 
-    const productTotal = product.price * quantity;
-
-    const newCartItem = {
-      id: product.id,
-      title: product.title,
-      total: productTotal,
-      quantity,
-    };
-    const items = cartState.items.set(product.id, newCartItem);
-
-    const total = [...cartState.items].reduce(
-      (total, [id, item]) => total + item.total,
-      0,
-    );
-
-    updateCart(items, total);
+    addItem(id, quantity);
   };
 
   return {
-    cartState,
-    handelAddToCart,
-    handelRemoveFromCart,
+    cart,
+    removeItem,
+    changeQuantity,
   };
 }
