@@ -1,3 +1,7 @@
 export * as config from './api';
 export { initialFiltersSettings } from './initial-filters-settings';
-export { backgroundImagesList } from './background-images-list';
+export {
+  PICSUM_URL,
+  PICSUM_OPTIONS,
+  PICSUM_IMAGES_LIST,
+} from './picsum-images-list';

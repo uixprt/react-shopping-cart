@@ -1,9 +1,9 @@
+import { PICSUM_URL, PICSUM_OPTIONS, PICSUM_IMAGES_LIST } from 'src/configs';
 import type { FC, CSSProperties, ChangeEvent } from 'react';
-import { ProductEntity, CartItem } from '../entities';
+import { ProductEntity, CartItem } from 'src/entities';
 import styles from './Product.module.scss';
-import { toMonetaryText } from '../utils';
+import { toMonetaryText } from 'src/utils';
 import { Rate } from './Rate';
-import { backgroundImagesList } from 'src/configs';
 
 type Props = {
   product: ProductEntity;
@@ -18,6 +18,8 @@ export const Product: FC<Props> = ({ product, item, onChangeQuantity }) => {
     onChangeQuantity(product.id, updateValue);
   }
 
+  const [imageId, hash] = Object.entries(PICSUM_IMAGES_LIST)[product.id - 1];
+
   return (
     <>
       <div className={styles.productWrapper} key={product.id}>
@@ -25,9 +27,7 @@ export const Product: FC<Props> = ({ product, item, onChangeQuantity }) => {
           className={styles.imageBack}
           style={
             {
-              [`--background-image-url`]: `url("${
-                backgroundImagesList[product.id - 1]
-              }")`,
+              [`--background-image-url`]: `url("${PICSUM_URL}${imageId}${PICSUM_OPTIONS}${hash}")`,
             } as CSSProperties
           }
         >
