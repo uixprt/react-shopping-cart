@@ -1,15 +1,32 @@
-import type { FC } from 'react';
+import type {FC} from 'react';
 import styles from './Cart.module.scss';
-import { CartItem } from '../entities';
-import { toMonetaryText } from '../utils';
+import {CartEntity, ProductEntity} from '../entities';
+import {toMonetaryText} from '../utils';
 
 type Props = {
-  items: Map<number, CartItem>;
-  total: number;
-  handleRemoveItem: (item: CartItem) => void;
+  productsMap: Map<number, ProductEntity>;
+  cart: CartEntity;
+  onRemoveItem: (id: number) => void;
 };
 
-export const Cart: FC<Props> = ({ items, total, handleRemoveItem }) => {
+function calcItemTotal(product: ProductEntity, quantity: number) {
+  return (product?.price || 0) * quantity;
+}
+
+function calcTotal(
+  productsMap: Map<number, ProductEntity>,
+  cart: CartEntity,
+): number {
+  return [...cart].reduce((acc, [id, item]) => {
+    return (
+      acc + calcItemTotal(productsMap.get(id) as ProductEntity, item.quantity)
+    );
+  }, 0);
+}
+
+export const Cart: FC<Props> = ({productsMap, cart, onRemoveItem}) => {
+  const total = calcTotal(productsMap, cart);
+  
   return (
     <>
       <div className={styles.wrapper}>
@@ -17,17 +34,25 @@ export const Cart: FC<Props> = ({ items, total, handleRemoveItem }) => {
         <div className={styles.body}>
           {total > 0 ? (
             <>
-              {[...items].map(([id, item]) =>
+              {[...cart].map(([id, item]) =>
                 item.quantity > 0 ? (
                   <div className={styles.item} key={id}>
-                    <span className={styles.title}>{item.title}</span>
+                    <span className={styles.title}>
+                      {(productsMap.get(id) as ProductEntity)?.title || ''}
+                    </span>
                     <span className={styles.quantity}>X {item.quantity}</span>
                     <b className={styles.total}>
-                      {toMonetaryText(item.total, '$')}
+                      {toMonetaryText(
+                        calcItemTotal(
+                          productsMap.get(id) as ProductEntity,
+                          item.quantity,
+                        ),
+                        '$',
+                      )}
                     </b>
                     <button
                       className={styles.removeButton}
-                      onClick={() => handleRemoveItem(item)}
+                      onClick={() => onRemoveItem(id)}
                     >
                       X
                     </button>
